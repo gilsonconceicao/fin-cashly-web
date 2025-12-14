@@ -1,10 +1,20 @@
 <script setup lang="ts">
-  
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const showInitialInfo = computed(() => route.fullPath == '/')
 </script>
 
 <template>
-  <h1>Hello World</h1>
+  <div v-if="showInitialInfo">
+    <h1>Hello World </h1>
+    <nav>
+      <router-link to="/about">Test router to about</router-link>
+    </nav>
+  </div>
+
+  <router-view />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
