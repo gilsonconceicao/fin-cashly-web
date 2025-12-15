@@ -1,5 +1,3 @@
-import type { RouteRecordRaw } from "vue-router";
+import type { RouteRecordRaw } from 'vue-router';
 
-export type RouterTypeProps = {
-
-} & RouteRecordRaw;
+export type RouterTypeProps = {} & RouteRecordRaw;
