@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const showInitialInfo = computed(() => route.fullPath == '/')
+const showInitialInfo = computed(() => route.fullPath == '/');
+
+console.log('route.fullPath', route.fullPath)
 </script>
 
 <template>
