@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { Button } from './components/ui/button';
+
+const router = useRouter();
 
 const route = useRoute();
 const showInitialInfo = computed(() => route.fullPath == '/');
 
-console.log('route.fullPath', route.fullPath)
+function goAbout() {
+  router.push('/about');
+}
 </script>
 
 <template>
   <div v-if="showInitialInfo">
-    <h1>Hello World </h1>
-    <nav>
-      <router-link to="/about">Test router to about</router-link>
-    </nav>
+    <h1 class="text-3xl font-bold">Início</h1>
+    <Button variant="outline" @click="goAbout">Ir para sobre</Button>
   </div>
 
   <router-view />
 </template>
-
-<style scoped></style>
