@@ -9,8 +9,8 @@ const routes = [
     name: 'about',
     component: AboutView,
     meta: {
-      title: 'Sobre',
-    },
+      title: 'Sobre'
+    } 
   },
 ] as RouterTypeProps[];
 
