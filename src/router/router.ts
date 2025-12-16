@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import type { RouterTypeProps } from './router.type';
 import AboutView from '@/pages/AboutView.vue';
 import InterceptorsRouterUtils from '@/utils/InterceptorsRouterUtils';
@@ -15,7 +15,7 @@ const routes = [
 ] as RouterTypeProps[];
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 
