@@ -9,7 +9,7 @@ import SidebarContent from './SidebarContent.vue';
 </script>
 
 <template>
-  <Sidebar>
+  <Sidebar class="bg-white">
     <SidebarHeader />
     <SidebarContent />
     <SidebarFooter />
