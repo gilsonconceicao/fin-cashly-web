@@ -5,7 +5,7 @@ import AppSidebar from '@/components/sidebar/AppSidebar.vue';
 </script>
 
 <template>
-    <AppSidebar />
-     <Header />
-    <router-view />
+    <AppSidebar>
+        <router-view />
+    </AppSidebar>
 </template>
