@@ -13,13 +13,45 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
-  SidebarTrigger,
 } from '@/components/ui/sidebar'
 import Header from '../header/Header.vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
+import { computed, ref, watchEffect } from 'vue';
+import moment from '@/lib/moment';
 
 const { getRoutes } = useRouter();
-const routes = getRoutes();
+const routes = getRoutes()
+
+const now = ref(new Date());
+const hour = now.value.getHours();
+
+console.log('now-date: ', now.value.getHours())
+
+watchEffect((onCleanup) => {
+  const timer = setInterval(() => {
+    now.value = new Date()
+  }, 1000)
+
+  onCleanup(() => clearInterval(timer))
+})
+
+const currentDateFormated = computed(() => {
+  return moment(now.value)
+    .locale('pt-br')
+    .format('dddd, DD MMMM, HH:mm:ss')
+});
+
+const greetings = computed(() => {
+  if (hour >= 0 && hour <= 5) {
+    return "Hora de dormir"
+  } else if (hour > 5 && hour <= 12) {
+    return "Bom dia"; 
+  } else if (hour > 12 && hour < 18) {
+    return "Boa tarde"
+  } else {
+    return "Boa noite"
+  }
+})
 
 </script>
 
@@ -30,13 +62,9 @@ const routes = getRoutes();
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg">
-              <div
-                class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <GalleryVerticalEnd class="size-4" />
-              </div>
               <div class="grid flex-1 text-left text-sm leading-tight">
-                <span class="truncate font-semibold">Acme Inc</span>
-                <span class="truncate text-xs">Enterprise</span>
+                <span class="truncate font-bold text-xl">{{ greetings }}</span>
+                <span class="truncate text-sm">{{ currentDateFormated }}</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -44,7 +72,6 @@ const routes = getRoutes();
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Platform</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem v-for="item in routes" :key="item.path">
