@@ -1,16 +1,45 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouterTypeProps } from './router.type';
-import AboutView from '@/pages/AboutView.vue';
+import BaseView from '@/pages/BaseView.vue';
 import InterceptorsRouterUtils from '@/utils/InterceptorsRouterUtils';
+import { CalendarSearch, ClipboardList, Goal, Wallet } from 'lucide-vue-next';
 
 const routes = [
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView,
     meta: {
-      title: 'Sobre'
-    } 
+      title: 'Transações', 
+      icon: CalendarSearch
+    }, 
+    path: '/transacations',
+    name: 'transacations',
+    component: BaseView,
+  },
+  {
+    meta: {
+      title: 'Contas bancárias',
+      icon: Wallet
+    }, 
+    path: '/accounts',
+    name: 'accounts',
+    component: BaseView,
+  },
+  {
+    meta: {
+      title: 'Metas',
+      icon: Goal
+    }, 
+    path: '/goals',
+    name: 'goals',
+    component: BaseView,
+  },
+  {
+    meta: {
+      title: 'Categorias', 
+      icon: ClipboardList
+    }, 
+    path: '/categories',
+    name: 'categories',
+    component: BaseView,
   },
 ] as RouterTypeProps[];
 
@@ -20,6 +49,7 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  InterceptorsRouterUtils.retryToDefefaultRoute(to, from, next);
   InterceptorsRouterUtils.getMetaDataTitleNavigation(to, from);
   next();
 });
