@@ -4,7 +4,7 @@ import {
   RouteLocationNormalizedLoadedGeneric,
 } from 'vue-router';
 
-function retryToDefefaultRoute(
+function redirectToDefefaultRoute(
   to: RouteLocationNormalizedGeneric,
   from: RouteLocationNormalizedLoadedGeneric, 
   next: NavigationGuardNext
@@ -26,5 +26,5 @@ function getMetaDataTitleNavigation(
 
 export default {
   getMetaDataTitleNavigation,
-  retryToDefefaultRoute
+  retryToDefefaultRoute: redirectToDefefaultRoute
 };
