@@ -1,27 +1,38 @@
+import { key_credentials_auth } from '@/constants/localstorage.keys';
 import { InterceptorDefaultType } from './types/Interceptors.type';
 
-function retryToDefefaultRoute({ from, next, to }: InterceptorDefaultType) {
-  if (to.path === '/') {
-    next({
-      path: '/transacations',
-    });
-  }
-}
-
-function getMetaDataTitleNavigation({ from, to }: Omit<InterceptorDefaultType, "next">) {
+function getMetaDataTitleNavigation({
+  from,
+  to,
+}: Omit<InterceptorDefaultType, 'next'>) {
   const defaultTitle = 'Fincashly';
   document.title = (to.meta?.title as unknown as string) ?? defaultTitle;
 }
 
-function redirectWhenIsNotAuthenticated({ from, next, to }: InterceptorDefaultType) {
-  if (to.meta.requiredAuth ) {
- 
+function redirectWhenIsNotAuthenticated({
+  from,
+  next,
+  to,
+}: InterceptorDefaultType) {
+  const isAuthenticated = !!localStorage?.getItem(key_credentials_auth);
+
+  if (to.meta.requiredAuth && !isAuthenticated || (to.path === '/' && !isAuthenticated)) {
+    return next('/login');
   }
+  if (to.path === '/login' && isAuthenticated) {
+    return next('/');
+  }
+
+  if (isAuthenticated && to.path === '/') {
+    next({
+      path: '/transacations',
+    });
+  }
+
   next();
 }
 
 export default {
   getMetaDataTitleNavigation,
-  retryToDefefaultRoute,
-  redirectWhenIsNotAuthenticated
+  redirectWhenIsNotAuthenticated,
 };

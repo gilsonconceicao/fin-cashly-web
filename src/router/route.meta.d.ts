@@ -7,5 +7,6 @@ declare module 'vue-router' {
     title: string;
     icon: FunctionalComponent<LucideProps, {}, any, {}>; 
     requiredAuth: boolean = false;
+    showInMenu: boolean
   }
 }

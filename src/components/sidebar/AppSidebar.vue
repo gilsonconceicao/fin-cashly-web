@@ -30,6 +30,7 @@ const routesMapped = computed(() => {
       isActive: item.path === route.path
     }
   })
+  .filter(route => route.meta.showInMenu != false)
 })
 
 const now = ref(new Date());

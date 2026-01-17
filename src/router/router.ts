@@ -3,15 +3,17 @@ import type { RouterTypeProps } from './router.type';
 import BaseView from '@/pages/BaseView.vue';
 import InterceptorsRouterUtils from '@/utils/InterceptorsRouterUtils';
 import { CalendarSearch, ClipboardList, Goal, Wallet } from 'lucide-vue-next';
+import Login from '@/pages/Login/Login.vue';
 
 const routes = [
   {
     meta: {
       title: 'Login',
+      showInMenu: false
     },
     path: '/login',
     name: 'login',
-    component: BaseView,
+    component: Login,
   },
   {
     meta: {
@@ -50,7 +52,7 @@ const routes = [
     component: BaseView,
   },
 ].map((route) => ({...route, meta: {...route.meta, requiredAuth: route.name != 'login'}})) as RouterTypeProps[];
-debugger
+
 export const router = createRouter({
   history: createWebHistory(),
   routes: routes,
@@ -58,7 +60,6 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   InterceptorsRouterUtils.redirectWhenIsNotAuthenticated({ to, from, next });
-  InterceptorsRouterUtils.retryToDefefaultRoute({ to, from, next });
   InterceptorsRouterUtils.getMetaDataTitleNavigation({ to, from });
   next();
 });
