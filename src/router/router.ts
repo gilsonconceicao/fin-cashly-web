@@ -7,9 +7,17 @@ import { CalendarSearch, ClipboardList, Goal, Wallet } from 'lucide-vue-next';
 const routes = [
   {
     meta: {
-      title: 'Transações', 
-      icon: CalendarSearch
-    }, 
+      title: 'Login',
+    },
+    path: '/login',
+    name: 'login',
+    component: BaseView,
+  },
+  {
+    meta: {
+      title: 'Transações',
+      icon: CalendarSearch,
+    },
     path: '/transacations',
     name: 'transacations',
     component: BaseView,
@@ -17,8 +25,8 @@ const routes = [
   {
     meta: {
       title: 'Contas bancárias',
-      icon: Wallet
-    }, 
+      icon: Wallet,
+    },
     path: '/accounts',
     name: 'accounts',
     component: BaseView,
@@ -26,30 +34,31 @@ const routes = [
   {
     meta: {
       title: 'Metas',
-      icon: Goal
-    }, 
+      icon: Goal,
+    },
     path: '/goals',
     name: 'goals',
     component: BaseView,
   },
   {
     meta: {
-      title: 'Categorias', 
-      icon: ClipboardList
-    }, 
+      title: 'Categorias',
+      icon: ClipboardList,
+    },
     path: '/categories',
     name: 'categories',
     component: BaseView,
   },
-] as RouterTypeProps[];
-
+].map((route) => ({...route, meta: {...route.meta, requiredAuth: route.name != 'login'}})) as RouterTypeProps[];
+debugger
 export const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: routes,
 });
 
 router.beforeEach((to, from, next) => {
-  InterceptorsRouterUtils.retryToDefefaultRoute(to, from, next);
-  InterceptorsRouterUtils.getMetaDataTitleNavigation(to, from);
+  InterceptorsRouterUtils.redirectWhenIsNotAuthenticated({ to, from, next });
+  InterceptorsRouterUtils.retryToDefefaultRoute({ to, from, next });
+  InterceptorsRouterUtils.getMetaDataTitleNavigation({ to, from });
   next();
 });

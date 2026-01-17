@@ -1,30 +1,27 @@
-import {
-  NavigationGuardNext,
-  RouteLocationNormalizedGeneric,
-  RouteLocationNormalizedLoadedGeneric,
-} from 'vue-router';
+import { InterceptorDefaultType } from './types/Interceptors.type';
 
-function retryToDefefaultRoute(
-  to: RouteLocationNormalizedGeneric,
-  from: RouteLocationNormalizedLoadedGeneric, 
-  next: NavigationGuardNext
-) {
+function retryToDefefaultRoute({ from, next, to }: InterceptorDefaultType) {
   if (to.path === '/') {
     next({
-      path: '/transacations'
-    })
-  } 
+      path: '/transacations',
+    });
+  }
 }
 
-function getMetaDataTitleNavigation(
-  to: RouteLocationNormalizedGeneric,
-  from: RouteLocationNormalizedLoadedGeneric
-) {
+function getMetaDataTitleNavigation({ from, to }: Omit<InterceptorDefaultType, "next">) {
   const defaultTitle = 'Fincashly';
   document.title = (to.meta?.title as unknown as string) ?? defaultTitle;
 }
 
+function redirectWhenIsNotAuthenticated({ from, next, to }: InterceptorDefaultType) {
+  if (to.meta.requiredAuth ) {
+ 
+  }
+  next();
+}
+
 export default {
   getMetaDataTitleNavigation,
-  retryToDefefaultRoute
+  retryToDefefaultRoute,
+  redirectWhenIsNotAuthenticated
 };
