@@ -17,7 +17,7 @@ const handleSubmitForm = () => {
         alert("Preencha os campos para seguir em frente")
     } else {
         localStorage.setItem(key_credentials_auth, JSON.stringify(form ?? {})); 
-        push('/')
+        push('/');
     }
 }
 

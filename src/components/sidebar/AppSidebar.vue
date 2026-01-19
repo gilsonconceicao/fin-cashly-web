@@ -5,7 +5,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
@@ -18,8 +17,11 @@ import Header from '../header/Header.vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { computed, ref, watch, watchEffect } from 'vue';
 import moment from '@/lib/moment';
+import { Button } from '../ui/button';
+import { LogOut } from 'lucide-vue-next';
+import { key_credentials_auth } from '@/constants/localstorage.keys';
 
-const { getRoutes } = useRouter();
+const { getRoutes, push } = useRouter();
 const route = useRoute();
 const routes = getRoutes();
 
@@ -30,7 +32,7 @@ const routesMapped = computed(() => {
       isActive: item.path === route.path
     }
   })
-  .filter(route => route.meta.showInMenu != false)
+    .filter(route => route.meta.showInMenu != false)
 })
 
 const now = ref(new Date());
@@ -54,13 +56,18 @@ const greetings = computed(() => {
   if (hour >= 0 && hour <= 5) {
     return "Hora de dormir"
   } else if (hour > 5 && hour <= 12) {
-    return "Bom dia"; 
+    return "Bom dia";
   } else if (hour > 12 && hour < 18) {
     return "Boa tarde"
   } else {
     return "Boa noite"
   }
-})
+});
+
+const logout = () => {
+  localStorage.removeItem(key_credentials_auth);
+  push('/');
+}
 
 </script>
 
@@ -91,6 +98,9 @@ const greetings = computed(() => {
                   </RouterLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <Button @click="logout" variant="ghost">
+                <component :is="LogOut" /> Sair do sistema
+              </Button>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

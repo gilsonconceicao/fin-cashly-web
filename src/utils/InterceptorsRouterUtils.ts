@@ -7,15 +7,17 @@ function redirectWhenIsNotAuthenticated({
   to,
 }: InterceptorDefaultType) {
   const isAuthenticated = !!localStorage?.getItem(key_credentials_auth);
+  const path = to.path;
 
-  if (to.meta.requiredAuth && !isAuthenticated || (to.path === '/' && !isAuthenticated)) {
+  if (to.meta.requiredAuth && !isAuthenticated || (path === '/' && !isAuthenticated)) {
     return next('/login');
   }
-  if (to.path === '/login' && isAuthenticated) {
+  
+  if (path === '/login' && isAuthenticated) {
     return next('/');
   }
 
-  if (isAuthenticated && to.path === '/') {
+  if (isAuthenticated && path === '/') {
     next({
       path: '/transacations',
     });
