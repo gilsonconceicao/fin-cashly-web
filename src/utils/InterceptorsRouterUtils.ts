@@ -1,14 +1,6 @@
 import { key_credentials_auth } from '@/constants/localstorage.keys';
 import { InterceptorDefaultType } from './types/Interceptors.type';
 
-function getMetaDataTitleNavigation({
-  from,
-  to,
-}: Omit<InterceptorDefaultType, 'next'>) {
-  const defaultTitle = 'Fincashly';
-  document.title = (to.meta?.title as unknown as string) ?? defaultTitle;
-}
-
 function redirectWhenIsNotAuthenticated({
   from,
   next,
@@ -32,7 +24,15 @@ function redirectWhenIsNotAuthenticated({
   next();
 }
 
+function getMetaDataTitleNavigation({
+  from,
+  to,
+}: Omit<InterceptorDefaultType, 'next'>) {
+  const defaultTitle = 'Fincashly';
+  document.title = (to.meta?.title as unknown as string) ?? defaultTitle;
+}
+
 export default {
-  getMetaDataTitleNavigation,
   redirectWhenIsNotAuthenticated,
+  getMetaDataTitleNavigation
 };
