@@ -1,5 +1,21 @@
-# Vue 3 + TypeScript + Vite
+# FinCashly Web
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+**FinCashly Web** é a aplicação **frontend** do ecossistema FinCashly, desenvolvida em **Vue 3**, focada em uma experiência moderna, acessível e performática para gerenciamento financeiro pessoal.  
+A aplicação consome a **FinCashly API**, oferecendo controle de **usuários, contas, transações, categorias e metas**, com formulários robustos, validações tipadas e componentes reutilizáveis.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+---
+
+## Stack Tecnológica
+
+- **Vue 3** (Composition API)
+- **Vite**
+- **TypeScript**
+- **Vue Router**
+- **Pinia** (State Management)
+- **Vee-Validate** + **Zod** (Validations & forms)
+- **shadcn-vue** (Design System & UI Components)
+- **Tailwind CSS**
+- **Axios** (HTTP Client)
+
+
+---
