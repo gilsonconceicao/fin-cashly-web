@@ -1,5 +1,5 @@
 import { toTypedSchema } from '@vee-validate/zod'
-import { email, z } from 'zod'
+import { z } from 'zod'
 
 export const loginSchema = toTypedSchema(
   z.object({
