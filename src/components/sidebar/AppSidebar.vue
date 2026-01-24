@@ -19,7 +19,7 @@ import { computed, ref, watch, watchEffect } from 'vue';
 import moment from '@/lib/moment';
 import { Button } from '../ui/button';
 import { LogOut } from 'lucide-vue-next';
-import { key_credentials_auth } from '@/constants/localstorage.keys';
+import { key_accesstoken } from '@/constants/localstorage.keys';
 
 const { getRoutes, push } = useRouter();
 const route = useRoute();
@@ -65,7 +65,7 @@ const greetings = computed(() => {
 });
 
 const logout = () => {
-  localStorage.removeItem(key_credentials_auth);
+  localStorage.removeItem(key_accesstoken);
   push('/');
 }
 
