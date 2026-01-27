@@ -8,10 +8,13 @@ import ControlledForm from '@/components/forms/ControlledForm.vue';
 import { getAuth, signInWithEmailAndPassword, User } from "firebase/auth";
 import { UserLoginType } from '@/services/types/generic.types';
 import firebaseApp from '@/services/firebase';
+import { ref } from 'vue';
 
 const { push } = useRouter();
+const isLoading = ref(false);
 
 const onSubmit = async (values: UserLoginType) => {
+    isLoading.value = true;
     const { email, password } = values;
     const auth = getAuth(firebaseApp);
     await signInWithEmailAndPassword(auth, email, password)
@@ -24,7 +27,8 @@ const onSubmit = async (values: UserLoginType) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             // to do for me: handle error and show message
-        });
+        })
+        .finally(() => isLoading.value = false);
 };
 
 </script>
@@ -37,8 +41,8 @@ const onSubmit = async (values: UserLoginType) => {
             :onsubmit="(v) => onSubmit(v as UserLoginType)">
             <InputFormField label="E-mail" name="email" placeholder="E-mail" :required="true" type="email" />
             <InputFormField label="Senha" name="password" placeholder="Senha" :required="true" type="password" />
-            <Button type="submit">
-                Acessar
+            <Button type="submit" :disabled="isLoading">
+                {{ isLoading ? 'Carregando...' : 'Acessar' }}
             </Button>
         </ControlledForm>
     </div>
