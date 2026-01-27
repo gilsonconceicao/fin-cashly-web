@@ -1,4 +1,4 @@
-import { key_credentials_auth } from '@/constants/localstorage.keys';
+import { key_accesstoken } from '@/constants/localstorage.keys';
 import { InterceptorDefaultType } from './types/Interceptors.type';
 
 function redirectWhenIsNotAuthenticated({
@@ -6,7 +6,7 @@ function redirectWhenIsNotAuthenticated({
   next,
   to,
 }: InterceptorDefaultType) {
-  const isAuthenticated = !!localStorage?.getItem(key_credentials_auth);
+  const isAuthenticated = !!localStorage?.getItem(key_accesstoken);
   const path = to.path;
 
   if (to.meta.requiredAuth && !isAuthenticated || (path === '/' && !isAuthenticated)) {

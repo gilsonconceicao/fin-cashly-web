@@ -1,1 +1,1 @@
-export const key_credentials_auth = 'credentials'
+export const key_accesstoken = 'accesstoken'

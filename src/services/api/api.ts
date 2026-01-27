@@ -1,5 +1,6 @@
+import { key_accesstoken } from '@/constants/localstorage.keys';
 import axios from 'axios';
-const accessToken = '';
+const accessToken = localStorage.getItem(key_accesstoken) ?? "";
 
 const api_client = axios.create({
   baseURL: 'http://localhost:8080/api',
