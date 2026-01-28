@@ -12,6 +12,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import Header from '../header/Header.vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
@@ -22,6 +23,8 @@ import { LogOut } from 'lucide-vue-next';
 import { key_accesstoken } from '@/constants/localstorage.keys';
 
 const { getRoutes, push } = useRouter();
+const { isMobile, toggleSidebar } = useSidebar(); 
+
 const route = useRoute();
 const routes = getRoutes();
 
@@ -69,6 +72,12 @@ const logout = () => {
   push('/');
 }
 
+const handleClickRouter = () => {
+  if (!!isMobile.value) {
+    toggleSidebar();
+  }
+}
+
 </script>
 
 <template>
@@ -87,12 +96,12 @@ const logout = () => {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup >
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem v-for="item in routesMapped" :key="item.path">
-                <SidebarMenuButton as-child :style="item.isActive ? 'background: #e9e9e9;' : ''">
-                  <RouterLink :to="item.path">
+              <SidebarMenuItem v-for="item in routesMapped" :key="item.path" class="">
+                <SidebarMenuButton @click="handleClickRouter" as-child :style="item.isActive ? 'font-weight: bold' : ''">
+                  <RouterLink :to="item.path" >
                     <component :is="item.meta.icon" />
                     <span>{{ item.meta.title }}</span>
                   </RouterLink>

@@ -9,6 +9,7 @@ import { getAuth, signInWithEmailAndPassword, User } from "firebase/auth";
 import { UserLoginType } from '@/services/types/generic.types';
 import firebaseApp from '@/services/firebase';
 import { ref } from 'vue';
+import { toast } from 'vue-sonner';
 
 const { push } = useRouter();
 const isLoading = ref(false);
@@ -24,9 +25,8 @@ const onSubmit = async (values: UserLoginType) => {
             push('/');
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
-            // to do for me: handle error and show message
+            toast.error("Ops!", { description: errorMessage });
         })
         .finally(() => isLoading.value = false);
 };
@@ -34,16 +34,19 @@ const onSubmit = async (values: UserLoginType) => {
 </script>
 
 <template>
-    <div>
-        <h1>Login</h1>
+    <div class="flex items-center justify-center h-screen">
+        <div class="p-4  rounded-sm w-[500px] space-y-3">
+            <h1 class="text-3xl">FinCashly</h1>
 
-        <ControlledForm :schema="loginSchema" :initialvalues="loginInitialValues"
-            :onsubmit="(v) => onSubmit(v as UserLoginType)">
-            <InputFormField label="E-mail" name="email" placeholder="E-mail" :required="true" type="email" />
-            <InputFormField label="Senha" name="password" placeholder="Senha" :required="true" type="password" />
-            <Button type="submit" :disabled="isLoading">
-                {{ isLoading ? 'Carregando...' : 'Acessar' }}
-            </Button>
-        </ControlledForm>
+            <ControlledForm :schema="loginSchema" :initialvalues="loginInitialValues"
+                :onsubmit="(v) => onSubmit(v as UserLoginType)">
+                <InputFormField label="E-mail" name="email" placeholder="E-mail" :required="true" type="email" />
+                <InputFormField label="Senha" name="password" placeholder="Senha" :required="true" type="password" />
+                <Button type="submit" class="w-full cursor-pointer" :disabled="isLoading">
+                    {{ isLoading ? 'Carregando...' : 'Acessar' }}
+                </Button>
+            </ControlledForm>
+
+        </div>
     </div>
 </template>
