@@ -14,7 +14,7 @@ const { value, errorMessage, handleBlur } = useField<string>(props.name)
 </script>
 
 <template>
-    <div :class="['grid w-full max-w-sm items-center gap-1']">
+    <div :class="['grid w-full items-center gap-1']">
 
         <Label :for="props.name">
             {{ props.label }}
@@ -25,6 +25,7 @@ const { value, errorMessage, handleBlur } = useField<string>(props.name)
             :id="props.name" 
             :type="props.type ?? 'text'" 
             v-model="value" 
+            class="outline-none"
             :placeholder="props.placeholder"
             :required="props.required" 
             @blur="handleBlur" 
@@ -35,3 +36,14 @@ const { value, errorMessage, handleBlur } = useField<string>(props.name)
         </p>
     </div>
 </template>
+
+<style scoped>
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px hsl(var(--input)) inset !important;
+  -webkit-text-fill-color: hsl(var(--foreground)) !important;
+  caret-color: hsl(var(--foreground));
+}
+</style>

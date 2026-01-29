@@ -2,11 +2,11 @@ import { createApp, onMounted } from 'vue';
 import './style.css';
 import App from './App.vue';
 import { router } from './router/router';
-
-import moment from '@/lib/moment'
-import 'moment/locale/pt-br';
-moment.locale('pt-br');
+import { Toaster } from './components/ui/sonner';
+import 'vue-sonner/style.css'
+document.documentElement.classList.add('dark')
 
 createApp(App)
-    .use(router)
-    .mount('#app');
+  .use(router)
+  .component('Toaster', Toaster)
+  .mount('#app');
